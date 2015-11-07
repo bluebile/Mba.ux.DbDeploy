@@ -1,0 +1,33 @@
+{
+    "name": "Mba.ux.DbDebploy",
+    "version": "0.0.1",
+    "homepage": "https://github.com/bluebile/Mba.ux.DbDebploy",
+    "authors": [
+        "Bluebile <info@bluebile.com>"
+    ],
+    "description": "Deploy de arquivos delta",
+    "main": [
+        "DbDebploy.js"
+    ],
+    "keywords": [
+        "senchatouch",
+        "extjs",
+        "ux",
+        "model",
+        "data"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "demo",
+        "ux",
+        "**/*.*~",
+        "gulpfile.js",
+        "bower.json",
+        "package.json",
+        "test",
+        "tests"
+    ]
+}
