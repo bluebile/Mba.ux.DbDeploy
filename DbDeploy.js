@@ -19,17 +19,44 @@ Ext.define('Mba.ux.DbDeploy', {
         var deltas = this.getDeltas(),
             i, length = deltas.length;
         for (i = 0; i < length; i++) {
-            transaction.executeSql(this.parseSql(deltas[i]));
+            this.runSql(deltas, i, transaction);
         }
     },
 
-    /**
-     * Essa funçao pode ser usada caso o conteudo do arquivo remoto esteja encriptada com alguma chave
-     * @param string delta
-     * @returns {*}
-     */
-    parseSql: function(delta)
+    runSql: function(dmls, index, transaction)
     {
-        return delta;
+        var localStorage = window.localStorage,
+            item;
+
+        item = localStorage.getItem(this.getId(index));
+
+        if (item) {
+            return;
+        }
+
+        this.parseSql(dmls, index, transaction);
+    },
+
+    parseSql: function(dmls, index, transaction)
+    {
+        var i,
+            length = dmls[index].length;
+        for (i = 0; i < length; i++) {
+            this.executeSql(transaction, dmls[index][i], index);
+        }
+    },
+
+    executeSql: function(transaction, sql, id)
+    {
+        var me = this;
+        transaction.executeSql(sql, [], function() {
+            var localStorage = window.localStorage;
+            localStorage.setItem(me.getId(id), true);
+        });
+    },
+
+    getId: function(index)
+    {
+        return 'db_deploy_file' + index;
     }
 });
