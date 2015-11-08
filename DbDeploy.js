@@ -12,8 +12,7 @@ Ext.define('Mba.ux.DbDeploy', {
     run: function()
     {
         var me = this,
-            deltas = this.getDeltas(),
-            i, length = deltas.length;
+            deltas = this.getDeltas();
 
         me.runDeltas(deltas, me.index);
     },
@@ -39,7 +38,7 @@ Ext.define('Mba.ux.DbDeploy', {
         item = localStorage.getItem(this.getId(index));
 
         if (item) {
-            return;                                                                                                                            sol
+            return;
         }
 
         this.parseSql(dmls, index, transaction);
