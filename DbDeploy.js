@@ -8,19 +8,21 @@ Ext.define('Mba.ux.DbDeploy', {
 
     run: function()
     {
-        var me = this;
-        me.getDb().transaction(function(transaction) {
-            me.runDeltas(transaction);
-        });
+        var me = this,
+            deltas = this.getDeltas(),
+            i, length = deltas.length;
+
+        for (i = 0; i < length; i++) {
+            me.runDelta(deltas, i);
+        }
     },
 
-    runDeltas: function(transaction)
+    runDelta: function(deltas, index)
     {
-        var deltas = this.getDeltas(),
-            i, length = deltas.length;
-        for (i = 0; i < length; i++) {
-            this.runSql(deltas, i, transaction);
-        }
+        var me = this;
+        me.getDb().transaction(function(transaction) {
+            me.runSql(deltas, index, transaction);
+        });
     },
 
     runSql: function(dmls, index, transaction)
