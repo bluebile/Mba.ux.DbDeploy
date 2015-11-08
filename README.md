@@ -20,6 +20,19 @@ deploy.setDeltas(
     ]
 );
 deploy.run();
+
+
+var deploy = Ext.create('Mba.ux.DbDeployFile');
+
+deploy.setDb(model.getProxy().getDatabaseObject());
+deploy.setDeltas(
+    [
+        'resources/deltas/1_alter_columns_one.sql',
+        'resources/deltas/2_alter_columns_two.sql'
+    ]
+);
+deploy.run();
+
 ```
 
 ## Contato
