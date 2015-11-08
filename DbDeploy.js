@@ -6,22 +6,28 @@ Ext.define('Mba.ux.DbDeploy', {
         deltas: null
     },
 
+    failure: false,
+    index: 0,
+
     run: function()
     {
         var me = this,
             deltas = this.getDeltas(),
             i, length = deltas.length;
 
-        for (i = 0; i < length; i++) {
-            me.runDelta(deltas, i);
-        }
+        me.runDeltas(deltas, me.index);
     },
 
-    runDelta: function(deltas, index)
+    runDeltas: function(deltas, index)
     {
         var me = this;
+
         me.getDb().transaction(function(transaction) {
             me.runSql(deltas, index, transaction);
+        }, Ext.emptyFn, function() {
+            var localStorage = window.localStorage;
+            localStorage.setItem(me.getId(index), true);
+            me.nextDelta();
         });
     },
 
@@ -33,7 +39,7 @@ Ext.define('Mba.ux.DbDeploy', {
         item = localStorage.getItem(this.getId(index));
 
         if (item) {
-            return;
+            return;                                                                                                                            sol
         }
 
         this.parseSql(dmls, index, transaction);
@@ -44,17 +50,27 @@ Ext.define('Mba.ux.DbDeploy', {
         var i,
             length = dmls[index].length;
         for (i = 0; i < length; i++) {
-            this.executeSql(transaction, dmls[index][i], index);
+            this.executeSql(transaction, dmls[index][i]);
         }
     },
 
-    executeSql: function(transaction, sql, id)
+    executeSql: function(transaction, sql)
     {
         var me = this;
-        transaction.executeSql(sql, [], function() {
-            var localStorage = window.localStorage;
-            localStorage.setItem(me.getId(id), true);
+        transaction.executeSql(sql, [], Ext.emptyFn, function() {
+            console.log('Problema dml ' + sql);
+            return true;
         });
+    },
+
+    nextDelta: function()
+    {
+        var me     = this,
+            deltas = me.getDeltas(),
+            length = deltas.length;
+        if (me.index < (length-1)) {
+            me.runDeltas(deltas, ++me.index);
+        }
     },
 
     getId: function(index)
