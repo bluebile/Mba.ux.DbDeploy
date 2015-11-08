@@ -5,7 +5,8 @@ Ext.define('Mba.ux.DbDeployFile', {
     {
         var dmls, length, i;
 
-        dmls = this.requestFile(files[index]);
+        dmls = this.requestFile(this.getFile(files, index));
+
         if (!dmls) {
             return;
         }
@@ -14,6 +15,11 @@ Ext.define('Mba.ux.DbDeployFile', {
         for (i = 0; i < length; i++) {
             this.executeSql(transaction, dmls[i], index);
         }
+    },
+
+    getFile: function(files, index)
+    {
+        return files[index];
     },
 
     requestFile: function(file)

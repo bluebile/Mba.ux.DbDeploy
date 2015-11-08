@@ -23,11 +23,17 @@ Ext.define('Mba.ux.DbDeploy', {
 
         me.getDb().transaction(function(transaction) {
             me.runSql(deltas, index, transaction);
-        }, Ext.emptyFn, function() {
-            var localStorage = window.localStorage;
-            localStorage.setItem(me.getId(index), true);
+        }, Ext.emptyFn, me.successCallbackDelta(index));
+    },
+
+    successCallbackDelta: function(index)
+    {
+        var me = this,
+            localStorage = window.localStorage;
+        return function() {
+            localStorage.setItem(me.getId(index), index + 1);
             me.nextDelta();
-        });
+        }
     },
 
     runSql: function(dmls, index, transaction)
@@ -74,6 +80,6 @@ Ext.define('Mba.ux.DbDeploy', {
 
     getId: function(index)
     {
-        return 'db_deploy_file' + index;
+        return 'db_deploy_file' + (index + 1);
     }
 });
