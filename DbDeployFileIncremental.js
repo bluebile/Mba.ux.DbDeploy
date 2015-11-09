@@ -20,6 +20,11 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
         }
     },
 
+    runSql: function(dmls, index, transaction)
+    {
+        return this.parseSql(dmls, index, transaction);
+    },
+
     getExtension: function()
     {
         if (!this.extension) {
