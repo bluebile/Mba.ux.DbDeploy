@@ -6,7 +6,6 @@ Ext.define('Mba.ux.DbDeploy', {
         deltas: null
     },
 
-    failure: false,
     index: 0,
 
     run: function()

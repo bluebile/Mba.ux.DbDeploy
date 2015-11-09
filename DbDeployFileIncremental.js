@@ -14,8 +14,13 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
         item = localStorage.getItem(this.getId());
 
         if (item) {
-            this.index = ++item;
+            this.index = item;
         }
+    },
+
+    nextDelta: function()
+    {
+        this.runDeltas(null, ++this.index);
     },
 
     getFile: function(files, index)
@@ -30,6 +35,6 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     getId: function(index)
     {
-        return 'db_deploy_file_polling';
+        return 'db_deploy_file_incremental';
     }
 });

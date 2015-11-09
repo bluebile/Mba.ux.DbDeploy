@@ -32,6 +32,9 @@ Ext.define('Mba.ux.DbDeployFile', {
             async: false,
             success: function(response) {
                 dmls = response.responseText.split(/;\n/g);
+            },
+            failure: function() {
+                throw 'Verifique os arquivos deltas';
             }
         });
 
