@@ -2,9 +2,11 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
     extend: 'Mba.ux.DbDeployFile',
 
     config: {
-        extension: 'sql',
+        extension: null,
         uri: ''
     },
+
+    index: 1,
 
     initialize: function()
     {
@@ -14,8 +16,17 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
         item = localStorage.getItem(this.getId());
 
         if (item) {
-            this.index = item;
+            this.index = ++item;
         }
+    },
+
+    getExtension: function()
+    {
+        if (!this.extension) {
+            return 'sql';
+        }
+
+        return this.extension;
     },
 
     nextDelta: function()
@@ -25,7 +36,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     getFile: function(files, index)
     {
-        return this.getUri() + '/' + (index + 1) + '.' + this.getExtension();
+        return this.getUri() + '/' + index + '.' + this.getExtension();
     },
 
     updateDeltas: function()

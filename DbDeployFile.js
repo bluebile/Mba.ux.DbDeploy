@@ -1,6 +1,8 @@
 Ext.define('Mba.ux.DbDeployFile', {
     extend: 'Mba.ux.DbDeploy',
 
+    deltasRunSuccess: [],
+
     parseSql: function(files, index, transaction)
     {
         var dmls, length, i;
@@ -24,7 +26,13 @@ Ext.define('Mba.ux.DbDeployFile', {
 
     requestFile: function(file)
     {
-        var dmls;
+        var dmls,
+            me = this;
+
+        if (Ext.Array.contains(me.deltasRunSuccess, file)) {
+            return;
+        }
+
         Ext.Ajax.request({
             method: 'GET',
             url: file,
@@ -32,6 +40,7 @@ Ext.define('Mba.ux.DbDeployFile', {
             async: false,
             success: function(response) {
                 dmls = response.responseText.split(/;\n/g);
+                me.deltasRunSuccess.push(file);
             },
             failure: function() {
                 throw 'Verifique os arquivos deltas';
