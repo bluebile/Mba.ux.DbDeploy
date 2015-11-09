@@ -30,7 +30,7 @@ Ext.define('Mba.ux.DbDeploy', {
         var me = this,
             localStorage = window.localStorage;
         return function() {
-            localStorage.setItem(me.getId(index), index + 1);
+            localStorage.setItem(me.getId(index), index);
             me.nextDelta();
         }
     },
