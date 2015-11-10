@@ -11,6 +11,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     initialize: function()
     {
+        this.callParent();
         var localStorage = window.localStorage,
             item;
 
@@ -24,12 +25,13 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
     getRequestFileFailureCallback: function()
     {
         var me = this, fn;
+
         fn = function() {
-            me.callParent();
+            me.superclass.getRequestFileFailureCallback()();
             me.polling();
         }
 
-        return fn();
+        return fn;
     },
 
     polling: function()

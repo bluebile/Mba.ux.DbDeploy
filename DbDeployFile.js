@@ -2,8 +2,26 @@ Ext.define('Mba.ux.DbDeployFile', {
     extend: 'Mba.ux.DbDeploy',
 
     config: {
-        requestFileSuccessCallback: Ext.emptyFn,
-        requestFileFailureCallback: Ext.emptyFn
+        requestFileSuccessCallback: null,
+        requestFileFailureCallback: null
+    },
+
+    getRequestFileSuccessCallback: function()
+    {
+        if (!Ext.isFunction(this.requestFileSuccessCallback)) {
+            return Ext.emptyFn;
+        }
+
+        return this.requestFileSuccessCallback;
+    },
+
+    getRequestFileFailureCallback: function()
+    {
+        if (!Ext.isFunction(this.requestFileFailureCallback)) {
+            return Ext.emptyFn;
+        }
+
+        return this.requestFileFailureCallback;
     },
 
     deltasRunSuccess: [],
@@ -46,10 +64,10 @@ Ext.define('Mba.ux.DbDeployFile', {
             success: function(response) {
                 dmls = response.responseText.split(/;\n/g);
                 me.deltasRunSuccess.push(file);
-                me.getRequestFileSuccessCallback();
+                me.getRequestFileSuccessCallback()();
             },
             failure: function() {
-                me.getRequestFileFailureCallback();
+                me.getRequestFileFailureCallback()();
                 throw 'Verifique os arquivos deltas';
             }
         });
