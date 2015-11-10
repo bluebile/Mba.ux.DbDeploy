@@ -1,6 +1,6 @@
 Ext.define('Mba.ux.DbDeployFileIncremental', {
     extend: 'Mba.ux.DbDeployFile',
-    requires: [ 'Ext.Direct' ],
+    requires: [ 'Ext.Direct', 'Ext.direct.PollingProvider' ],
     config: {
         extension: null,
         uri: '',
@@ -25,11 +25,11 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
     {
         var me = this, fn;
         fn = function() {
-            me.getRequestFileFailureCallback();
+            me.callParent();
             me.polling();
         }
 
-        return fn;
+        return fn();
     },
 
     polling: function()
