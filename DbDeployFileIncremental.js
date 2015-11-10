@@ -1,9 +1,10 @@
 Ext.define('Mba.ux.DbDeployFileIncremental', {
     extend: 'Mba.ux.DbDeployFile',
-
+    requires: [ 'Ext.Direct' ],
     config: {
         extension: null,
-        uri: ''
+        uri: '',
+        timer: null
     },
 
     index: 1,
@@ -17,6 +18,36 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
         if (item) {
             this.index = ++item;
+        }
+    },
+
+    getRequestFileFailureCallback: function()
+    {
+        var me = this, fn;
+        fn = function() {
+            me.getRequestFileFailureCallback();
+            me.polling();
+        }
+
+        return fn;
+    },
+
+    polling: function()
+    {
+        var me = this;
+
+        if (me.getTimer()) {
+            var fn = function() {
+                me.run();
+            };
+
+            Ext.Direct.addProvider({
+                type: 'polling',
+                url: fn,
+                interval: me.getTimer()
+            });
+
+            return;
         }
     },
 

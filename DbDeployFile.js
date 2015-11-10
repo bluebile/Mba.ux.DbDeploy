@@ -1,6 +1,11 @@
 Ext.define('Mba.ux.DbDeployFile', {
     extend: 'Mba.ux.DbDeploy',
 
+    config: {
+        requestFileSuccessCallback: Ext.emptyFn,
+        requestFileFailureCallback: Ext.emptyFn
+    },
+
     deltasRunSuccess: [],
 
     parseSql: function(files, index, transaction)
@@ -41,8 +46,10 @@ Ext.define('Mba.ux.DbDeployFile', {
             success: function(response) {
                 dmls = response.responseText.split(/;\n/g);
                 me.deltasRunSuccess.push(file);
+                me.getRequestFileSuccessCallback()();
             },
             failure: function() {
+                me.getRequestFileFailureCallback()();
                 throw 'Verifique os arquivos deltas';
             }
         });
