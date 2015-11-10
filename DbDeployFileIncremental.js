@@ -46,8 +46,6 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
                 url: fn,
                 interval: me.getTimer()
             });
-
-            return;
         }
     },
 
