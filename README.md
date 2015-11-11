@@ -23,6 +23,7 @@ deploy.run();
 ```
 ### Example 2
 ```js
+var model = Ext.create('Model');
 var deploy = Ext.create('Mba.ux.DbDeployFile');
 
 deploy.setDb(model.getProxy().getDatabaseObject());
@@ -33,6 +34,18 @@ deploy.setDeltas(
     ]
 );
 deploy.run();
+
+```
+
+### Example 3
+```js
+    var model = Ext.create('Model');
+    var deploy = Ext.create('Mba.ux.DbDeployFileIncremental');
+
+    deploy.setDb(model.getProxy().getDatabaseObject());
+    deploy.setUri('resources/deltas'); // lembrar de adicionar no app.json para compilação
+    deploy.setTimer(40000); // polling de 40 segundos, este é opcional
+    deploy.run();
 
 ```
 
