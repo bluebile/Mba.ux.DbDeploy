@@ -2,7 +2,7 @@
 
 
 ## Utilização
-
+### Example 1
 ```js
 var deploy = Ext.create('Mba.ux.DbDeploy');
 var model = Ext.create('Model');
@@ -20,8 +20,9 @@ deploy.setDeltas(
     ]
 );
 deploy.run();
-
-
+```
+### Example 2
+```js
 var deploy = Ext.create('Mba.ux.DbDeployFile');
 
 deploy.setDb(model.getProxy().getDatabaseObject());

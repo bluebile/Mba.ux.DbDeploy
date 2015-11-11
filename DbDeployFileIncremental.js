@@ -8,6 +8,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
     },
 
     index: 1,
+    pollingActive: false,
 
     initialize: function()
     {
@@ -28,7 +29,10 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
         fn = function() {
             me.superclass.getRequestFileFailureCallback()();
-            me.polling();
+            if (!me.pollingActive) {
+                me.polling();
+                me.pollingActive = true;
+            }
         }
 
         return fn;
