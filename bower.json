@@ -29,5 +29,9 @@
         "package.json",
         "test",
         "tests"
-    ]
+    ],
+    "dependencies": {
+        "Mba.ux.Environment": "v0.0.18"
+    },
+    "requires": false
 }

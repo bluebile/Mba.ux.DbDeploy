@@ -76,7 +76,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     getFile: function(files, index)
     {
-        return this.getUri() + '/' + index + '.' + this.getExtension();
+        return Url.get(this.getUri()) + '/' + index + '.' + this.getExtension();
     },
 
     updateDeltas: function()
