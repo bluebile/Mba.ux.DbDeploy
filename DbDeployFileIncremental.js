@@ -62,7 +62,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     getExtension: function()
     {
-        if (!this.extension) {
+        if (this.extension === null) {
             return 'sql';
         }
 
@@ -76,6 +76,10 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
 
     getFile: function(files, index)
     {
+        if (!this.getExtension()) {
+            return Url.get(this.getUri()) + '/' + index;
+        }
+
         return Url.get(this.getUri()) + '/' + index + '.' + this.getExtension();
     },
 
