@@ -1,13 +1,13 @@
 {
-    "name": "Mba.ux.DbDebploy",
-    "version": "0.0.4",
-    "homepage": "https://github.com/bluebile/Mba.ux.DbDebploy",
+    "name": "Mba.ux.DbDeploy",
+    "version": "0.0.5",
+    "homepage": "https://github.com/bluebile/Mba.ux.DbDeploy",
     "authors": [
         "Bluebile <info@bluebile.com>"
     ],
     "description": "Deploy de arquivos delta",
     "main": [
-        "DbDebploy.js"
+        "DbDeploy.js"
     ],
     "keywords": [
         "senchatouch",
