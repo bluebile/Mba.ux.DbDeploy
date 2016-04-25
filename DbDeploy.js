@@ -61,10 +61,12 @@ Ext.define('Mba.ux.DbDeploy', {
     executeSql: function(transaction, sql)
     {
         var me = this;
-        transaction.executeSql(sql, [], Ext.emptyFn, function() {
-            console.log('Problema dml ' + sql);
-            return true;
-        });
+        if(sql) {
+            transaction.executeSql(sql, [], Ext.emptyFn, function() {
+                console.log('Problema dml ' + sql);
+                return true;
+            });
+        }
     },
 
     nextDelta: function()
