@@ -28,7 +28,7 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
         var me = this, fn;
 
         fn = function() {
-            me.superclass.getRequestFileFailureCallback()();
+            Mba.ux.DbDeployFile.prototype.getRequestFileFailureCallback()();
             if (!me.pollingActive) {
                 me.polling();
                 me.pollingActive = true;
@@ -41,7 +41,6 @@ Ext.define('Mba.ux.DbDeployFileIncremental', {
     polling: function()
     {
         var me = this;
-
         if (me.getTimer()) {
             var fn = function() {
                 me.run();
