@@ -1,6 +1,6 @@
 {
     "name": "Mba.ux.DbDeploy",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "homepage": "https://github.com/bluebile/Mba.ux.DbDeploy",
     "authors": [
         "Bluebile <info@bluebile.com>"
@@ -31,7 +31,7 @@
         "tests"
     ],
     "dependencies": {
-        "Mba.ux.Environment": "v0.0.18"
+        "Mba.ux.Environment": "v0.0.22"
     },
     "requires": false
 }
